@@ -1,11 +1,10 @@
-const Validacoes = require('../services/Validacoes');
-const UsuariosDao = require('../DAOs/UsuariosDao');
+const Validacoes = require('../../services/Validacoes');
+const UsuariosDao = require('../Dao/UsuariosDao');
 class Usuario {
     constructor(novoUsuario) {
         this.nome = novoUsuario.nome;
         this.apelido = novoUsuario.apelido;
         this.email = novoUsuario.email;
-        this.senha = novoUsuario.senha;
         this.cpf = novoUsuario.cpf;
         this.telefone = novoUsuario.telefone;
         this.endereco = novoUsuario.endereco;
@@ -13,6 +12,7 @@ class Usuario {
         this.cidade = novoUsuario.cidade;
         this.uf = novoUsuario.uf;
         this.complemento = novoUsuario.complemento;
+        this.senha = novoUsuario.senha;
 
         this.todasAsValidacoes();
     }
