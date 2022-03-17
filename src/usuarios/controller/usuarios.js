@@ -1,4 +1,4 @@
-const Usuario = require("../models/Usuario");
+const Usuario = require("../model/Usuario");
 const bcrypt = require("bcrypt");
 
 class UsuariosControllers {
@@ -6,7 +6,7 @@ class UsuariosControllers {
         try {
             const { nome, apelido, email, senha, cpf, telefone, endereco, cep, cidade, uf, complemento } = req.body;
             const senhaHash = await bcrypt.hash(senha, 12);
-            const novoUsuario = new Usuario({ nome, apelido, email, senha: senhaHash, cpf, telefone, endereco, cep, cidade, uf, complemento });
+            const novoUsuario = new Usuario({ nome, apelido, email, cpf, telefone, endereco, cep, cidade, uf, complemento, senha: senhaHash, });
             await novoUsuario.cadastrarUsuario();
             return res.status(200).json(novoUsuario)
         } catch (error) {
@@ -80,8 +80,7 @@ class UsuariosControllers {
             const email = req.params.email;
             const body = req.body;
             const cadastroAntigo = await Usuario.buscarUsuarioPorEmail(email);
-            const novaSenhaHashed = await bcrypt.hash(req.body.senha, 10);
-            // console.log(senha);
+           console.log(cadastroAntigo);
             if (cadastroAntigo) {
                 const cadastroAtualizado = [
                     body.nome || cadastroAntigo.nome,
@@ -94,7 +93,7 @@ class UsuariosControllers {
                     body.cidade || cadastroAntigo.cidade,
                     body.uf || cadastroAntigo.uf,
                     body.complemento || cadastroAntigo.complemento,
-                    body.senha ? novaSenhaHashed : cadastroAntigo.senha, 
+                    body.senha ? await bcrypt.hash(req.body.senha, 10) : cadastroAntigo.senha,
                 ];
                 await Usuario.atualizarUsuario(email, cadastroAtualizado)
                 res.status(200).json({ usuarioAtualizado: cadastroAtualizado });
