@@ -80,7 +80,7 @@ class UsuariosControllers {
             const email = req.params.email;
             const body = req.body;
             const cadastroAntigo = await Usuario.buscarUsuarioPorEmail(email);
-            // const novaSenhaHashed = await bcrypt.hash(req.body.senha, 10);
+            const novaSenhaHashed = await bcrypt.hash(req.body.senha, 10);
             // console.log(senha);
             if (cadastroAntigo) {
                 const cadastroAtualizado = [
@@ -94,7 +94,7 @@ class UsuariosControllers {
                     body.cidade || cadastroAntigo.cidade,
                     body.uf || cadastroAntigo.uf,
                     body.complemento || cadastroAntigo.complemento,
-                    body.senha === '' ? cadastroAntigo.senha : await bcrypt.hash(req.body.senha, 10)
+                    body.senha ? novaSenhaHashed : cadastroAntigo.senha, 
                 ];
                 await Usuario.atualizarUsuario(email, cadastroAtualizado)
                 res.status(200).json({ usuarioAtualizado: cadastroAtualizado });
