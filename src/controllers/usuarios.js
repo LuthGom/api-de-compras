@@ -44,7 +44,8 @@ class UsuariosControllers {
         try {
             const { email, senha } = req.body;
             const login = await Usuario.buscarUsuarioPorEmail(email);
-            if (!login.email !== email || login.senha !== senha) {
+            const senhaHashed = await bcrypt.compare(senha, login.senha)
+            if (login.email !== email || senhaHashed === false) {
                 return res.status(400).json({
                     message: "Email ou senha inválidas!",
                     error: true,
@@ -78,16 +79,14 @@ class UsuariosControllers {
         try {
             const email = req.params.email;
             const body = req.body;
-            const cadastroAntigo = await Usuario.buscarUsuarioPorEmail(cpf);
-            const novaSenhaHashed = await bcrypt.hash(req.body.senha, 12);
-
-
+            const cadastroAntigo = await Usuario.buscarUsuarioPorEmail(email);
+            // const novaSenhaHashed = await bcrypt.hash(req.body.senha, 10);
+            // console.log(senha);
             if (cadastroAntigo) {
                 const cadastroAtualizado = [
                     body.nome || cadastroAntigo.nome,
                     body.apelido || cadastroAntigo.apelido,
                     body.email || cadastroAntigo.email,
-                    novaSenhaHashed || cadastroAntigo.senha,
                     body.cpf || cadastroAntigo.cpf,
                     body.telefone || cadastroAntigo.telefone,
                     body.cep || cadastroAntigo.cep,
@@ -95,7 +94,9 @@ class UsuariosControllers {
                     body.cidade || cadastroAntigo.cidade,
                     body.uf || cadastroAntigo.uf,
                     body.complemento || cadastroAntigo.complemento,
+                    body.senha === '' ? cadastroAntigo.senha : await bcrypt.hash(req.body.senha, 10)
                 ];
+                await Usuario.atualizarUsuario(email, cadastroAtualizado)
                 res.status(200).json({ usuarioAtualizado: cadastroAtualizado });
             } else {
                 res.json({
@@ -104,6 +105,7 @@ class UsuariosControllers {
                 });
             }
         } catch (error) {
+            console.log(error);
             res.json({
                 mensagem: error.message,
                 error: true,

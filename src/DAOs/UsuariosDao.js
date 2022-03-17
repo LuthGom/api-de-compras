@@ -1,6 +1,6 @@
 const db = require('../infra/sqlite-db');
 
-module.exports =  class UsuariosDao {
+module.exports = class UsuariosDao {
     static cadastrarUsuario(novoUsuario) {
         const INSERT_INTO_Usuarios = `INSERT INTO Usuarios (nome, apelido, email, senha, cpf, telefone, endereco, cep, cidade, uf, complemento) VALUES (?,?,?,?,?,?,?,?,?,?,?);`
         return new Promise((resolve, reject) => {
@@ -55,23 +55,23 @@ module.exports =  class UsuariosDao {
     }
     static atualizarUsuario(email, usuario) {
 
-        const UPDATE = `
-            UPDATE Usuarios
-            SET nome = ?, apelido = ?, email = ?, senha = ?, cpf = ?, telefone = ?, endereco = ?, cep = ?, cidade = ?, uf = ?,  = ? WHERE email = ?;`;
         return new Promise((resolve, reject) => {
-            UPDATE,
-                db.run(UPDATE,
-                    [...Object.values(usuario), email], (error) => {
-                        if (error) {
-                            reject(error)
-                        } else {
-                            resolve({
-                                "mensagem": `Usuário de email ${email} atualizado com sucesso.`,
-                                "usuario": usuario,
-                                "erro": false
-                            })
-                        }
-                    })
+            const UPDATE = `
+                UPDATE Usuarios
+                SET nome = ?, apelido = ?, email = ?, senha = ?, cpf = ?, telefone = ?, endereco = ?, cep = ?, cidade = ?, uf = ?, complemento = ? WHERE email = ?;`;
+            const values = [...usuario, email];
+            db.run(UPDATE,
+                values, (error) => {
+                    if (error) {
+                        reject(error)
+                    } else {
+                        resolve({
+                            "mensagem": `Usuário de email ${email} atualizado com sucesso.`,
+                            "usuario": usuario,
+                            "erro": false
+                        })
+                    }
+                })
         })
 
     }
