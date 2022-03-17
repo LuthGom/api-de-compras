@@ -45,7 +45,7 @@ class UsuariosControllers {
             const { email, senha } = req.body;
             const login = await Usuario.buscarUsuarioPorEmail(email);
             const senhaHashed = await bcrypt.compare(senha, login.senha)
-            if (login.email !== email || senhaHashed === false) {
+            if (!login || senhaHashed === false) {
                 return res.status(400).json({
                     message: "Email ou senha inválidas!",
                     error: true,
