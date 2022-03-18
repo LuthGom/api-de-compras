@@ -21,14 +21,30 @@ CREATE TABLE IF NOT EXISTS "Usuarios"(
     "senha" varchar(64)
     
 )`;
+
+const PRODUTOS_SCHEMA = `
+CREATE TABLE IF NOT EXISTS "Produtos"(
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT, 
+    "titulo" varchar(255),
+    "subtitulo" varchar(255),
+    "descricao" varchar(2555),
+    "url_imagens" varchar(2555)
+    
+)`;
 function criaTabelaDeUsuarios() {
     bd.run(USUARIOS_SCHEMA, (error) => {
         if (error) console.log("Erro ao criar tabela de Usuarios");
     });
 }
+function criaTabelaDeProdutos() {
+    bd.run(PRODUTOS_SCHEMA, (error) => {
+        if (error) console.log("Erro ao criar tabela de Produtos");
+    });
+}
 
 bd.serialize(() => {
     criaTabelaDeUsuarios();
+    criaTabelaDeProdutos();
 })
 
 module.exports =  bd;

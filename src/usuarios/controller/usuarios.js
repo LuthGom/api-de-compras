@@ -6,9 +6,9 @@ class UsuariosControllers {
         try {
             const { nome, apelido, email, senha, cpf, telefone, endereco, cep, cidade, uf, complemento } = req.body;
             const senhaHash = await bcrypt.hash(senha, 12);
-            const novoUsuario = new Usuario({ nome, apelido, email, cpf, telefone, endereco, cep, cidade, uf, complemento, senha: senhaHash, });
-            await novoUsuario.cadastrarUsuario();
-            return res.status(200).json(novoUsuario)
+            const NovoUsuario = new Usuario({ nome, apelido, email, cpf, telefone, endereco, cep, cidade, uf, complemento, senha: senhaHash, });
+            await NovoUsuario.cadastrarUsuario();
+            return res.status(200).json(NovoUsuario)
         } catch (error) {
             return res.status(200).json({
                 message: error.message,
@@ -80,7 +80,6 @@ class UsuariosControllers {
             const email = req.params.email;
             const body = req.body;
             const cadastroAntigo = await Usuario.buscarUsuarioPorEmail(email);
-           console.log(cadastroAntigo);
             if (cadastroAntigo) {
                 const cadastroAtualizado = [
                     body.nome || cadastroAntigo.nome,
@@ -104,7 +103,6 @@ class UsuariosControllers {
                 });
             }
         } catch (error) {
-            console.log(error);
             res.json({
                 mensagem: error.message,
                 error: true,

@@ -36,7 +36,7 @@ module.exports = class UsuariosDao {
             })
         })
     } static listarUsuarioPorId(id) {
-        const SELECT_BY_ID = `SELECT * FROM Usuarios WHERE ID = ?`
+        const SELECT_BY_ID = `SELECT * FROM Usuarios WHERE id = ?`
         return new Promise((resolve, reject) => {
             db.all(SELECT_BY_ID, id, (error, rows) => {
                 if (error) {
