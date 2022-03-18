@@ -29,7 +29,6 @@ CREATE TABLE IF NOT EXISTS "Produtos"(
     "subtitulo" varchar(255),
     "descricao" varchar(2555),
     "url_imagens" varchar(2555)
-    
 )`;
 function criaTabelaDeUsuarios() {
     bd.run(USUARIOS_SCHEMA, (error) => {
