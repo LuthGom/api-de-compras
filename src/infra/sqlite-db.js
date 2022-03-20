@@ -30,6 +30,15 @@ CREATE TABLE IF NOT EXISTS "Produtos"(
     "descricao" varchar(2555),
     "url_imagens" varchar(2555)
 )`;
+
+const COMPRAS_SCHEMA = `
+CREATE TABLE IF NOT EXISTS "Lista_de_Compras"(
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT, 
+    "usuario" INTEGER, 
+    "lista de produtos" VARCHAR(2555),
+    FOREIGN KEY (usuario) REFERENCES Usuarios(id)
+)`;
+
 function criaTabelaDeUsuarios() {
     bd.run(USUARIOS_SCHEMA, (error) => {
         if (error) console.log("Erro ao criar tabela de Usuarios");
@@ -40,10 +49,17 @@ function criaTabelaDeProdutos() {
         if (error) console.log("Erro ao criar tabela de Produtos");
     });
 }
+function criaTabelaDelistaDeCompras() {
+    bd.run(COMPRAS_SCHEMA, (error) => {
+        if (error) console.log("Erro ao criar tabela de Lista de Compras");
+    });
+}
 
 bd.serialize(() => {
+    bd.each("PRAGMA foreign_keys=ON");
     criaTabelaDeUsuarios();
     criaTabelaDeProdutos();
-})
+    criaTabelaDelistaDeCompras();
 
-module.exports =  bd;
+})
+module.exports = bd;
