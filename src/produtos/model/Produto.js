@@ -9,10 +9,10 @@ class Produto {
     }
 
     async cadastrarProduto() {
-        if (!await Produto.buscarProdutoPorTitulo(this.titulo)) {
+        if (!await Produto.buscarProdutoPorTitulo(this.subtitulo)) {
             return ProdutosDao.cadastrarProduto(this)
         } else {
-            throw new Error(`O produto ${this.titulo} já está cadastrado!`)
+            throw new Error(`O produto ${this.subtitulo} já está cadastrado!`)
         }
     }
     static listarTodosOsProdutos() {
@@ -25,8 +25,8 @@ class Produto {
         }
         return produto;
     }
-    static async buscarProdutoPorTitulo(titulo) {
-        const produto = await ProdutosDao.buscaProdutoPorTitulo(titulo)
+    static async buscarProdutoPorTitulo(subtitulo) {
+        const produto = await ProdutosDao.buscaProdutoPorTitulo(subtitulo)
         if (!produto) {
             return null;
         }
