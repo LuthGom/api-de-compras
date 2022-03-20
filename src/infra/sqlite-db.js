@@ -63,5 +63,4 @@ bd.serialize(() => {
     criaTabelaDelistaDeCompras();
 
 })
-bd.each("PRAGMA foreign_keys = ON;")
 module.exports = bd;
