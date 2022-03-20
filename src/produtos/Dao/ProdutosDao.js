@@ -94,7 +94,7 @@ module.exports = class ProdutosDao {
         })
     }
     static buscaProdutoPorTitulo(titulo) {
-        const SELECT_BY_TITULO = `SELECT * FROM Produtos WHERE titulo = ?`
+        const SELECT_BY_TITULO = `SELECT * FROM Produtos WHERE subtitulo = ?`
         return new Promise((resolve, reject) => {
             db.get(SELECT_BY_TITULO, titulo, (error, rows) => {
                 if (error) {
