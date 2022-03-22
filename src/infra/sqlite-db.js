@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS "Usuarios"(
     "endereco" varchar(64),
     "cep" INTEGER,
     "cidade" varchar(64),
-    "uf" varchaar(4),
+    "uf" varchar(4),
     "complemento" varchar(64),
     "senha" varchar(64)
     
@@ -32,11 +32,11 @@ CREATE TABLE IF NOT EXISTS "Produtos"(
 )`;
 
 const COMPRAS_SCHEMA = `
-CREATE TABLE IF NOT EXISTS "Lista_de_Compras"(
+CREATE TABLE IF NOT EXISTS "ListaDeCompras"(
     "id" INTEGER PRIMARY KEY AUTOINCREMENT, 
-    "usuario" INTEGER, 
-    "lista de produtos" VARCHAR(2555),
-    FOREIGN KEY (usuario) REFERENCES Usuarios(id)
+    "usuario" varchar(255), 
+    "lista_de_produtos" VARCHAR(2555)
+    
 )`;
 
 function criaTabelaDeUsuarios() {
@@ -56,7 +56,7 @@ function criaTabelaDelistaDeCompras() {
 }
 
 bd.serialize(() => {
-    bd.each("PRAGMA foreign_keys=ON");
+
     criaTabelaDeUsuarios();
     criaTabelaDeProdutos();
     criaTabelaDelistaDeCompras();

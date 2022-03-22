@@ -1,4 +1,3 @@
-const Validacoes = require('../../services/Validacoes');
 const ProdutosDao = require('../Dao/ProdutosDao');
 class Produto {
     constructor(novoProduto) {
