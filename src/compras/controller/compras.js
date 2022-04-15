@@ -5,6 +5,7 @@ module.exports = class ComprasControllers {
         try {
             const { usuario, lista_de_produtos } = req.body;
             const NovaCompra = new Compras({ usuario, lista_de_produtos });
+            console.log(NovaCompra);
             await Compras.cadastrarNovaCompra();
             return res.status(200).json(NovaCompra)
         } catch (error) {

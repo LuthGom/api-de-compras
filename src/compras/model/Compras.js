@@ -3,11 +3,12 @@ const ComprasDao = require("../Dao/ComprasDao");
 module.exports = class Compras {
     constructor(novaCompra) {
         this.usuario = novaCompra.usuario;
-        this.lista = novaCompra.lista_de_produtos;
+        this.lista_de_produtos = novaCompra.lista_de_produtos;
     }
-    static async cadastrarNovaCompra() {
-
-        await ComprasDao.CadastrarNovaCompra(this)
+    async cadastrarNovaCompra() {
+        const compra = await ComprasDao.CadastrarNovaCompra(this)
+        console.log('lista', compra);
+        return compra
 
     }
     static listarTodasAsCompras() {
