@@ -6,7 +6,7 @@ module.exports =
     router
         .post('/produto/feminino', produtosControllers.cadastrarProduto)
         .get('/produtos/femininos', produtosControllers.listarTodosOsProdutos)
-        .get('/produto/femininos/:id', produtosControllers.listarProdutoPorId)
+        .get('/produto/feminino/:id', produtosControllers.listarProdutoPorId)
         .patch('/produto/feminino/:id', produtosControllers.atualizarProduto)
         .delete('/produto/feminino/:id', produtosControllers.deletarProduto)
 

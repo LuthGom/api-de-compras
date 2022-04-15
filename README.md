@@ -21,25 +21,45 @@
 # ROTAS:
 
 ## ENTIDADE USUÁRIOS:
- ### POST - CADASTRAR USUÁRIOS ("/usuario")
- ### GET - RETORNAR LISTA DE USUÁRIOS ("/usuarios")
- ### POST - AUTENTICAÇÃO DE LOGIN ("/usuario/login")
- ### GET - RETORNAR USUÁRIO PELO ID ("usuario/:id")
- ### PATCH - ATUALIZAR CADASTRO ("usuario/:email")
- ### DELETE - DELETAR CADASTRO ("usuario/:email")
+| Método | Descrição | Rota|
+| ------ | ---- | -------- |
+| POST | CADASTRAR USUÁRIOS `/usuario`|
+| GET | RETORNAR LISTA DE USUÁRIOS | `/usuarios` |
+| POST | AUTENTICAÇÃO DE LOGIN | `/usuario/login` |
+| GET | RETORNAR USUÁRIO PELO ID | `/usuarios/:id` |
+| PATCH | ATUALIZAR CADASTRO | `/usuario/:email` |
+| DELETE | DELETAR USUÁRIO | `/usuario/:email` |
+| ------ | --------------- | ---------------- |
  
- ## ENTIDADE PRODUTOS
- ### POST - CADASTRAR PRODUTOS ("/produto")
- ### GET - RETORNAR LISTA DE PRODUTOS ("/produtos")
- ### GET - RETORNAR PRUDUTOS PELO ID ("produto/:id")
- ### PATCH - ATUALIZAR PRODUTO ("produto/:id")
- ### DELETE - DELETAR PRODUTO ("produto/:id")
+ ## ENTIDADE PRODUTOS_FEMININOS
+| Método | Descrição | Rota|
+| ------ | ---- | -------- |
+| POST | CADASTRAR Produto `/produto/feminino`|
+| GET | RETORNAR LISTA DE PRODUTOS FEMININOS | `/produtos/femininos` |
+| GET | RETORNAR PRODUTO PELO ID | `/produto/feminino/:id` |
+| PATCH | ATUALIZAR CADASTRO | `/produto/feminino/:id` |
+| DELETE | DELETAR USUÁRIO | `/produto/feminino/:id` |
+| ------ | --------------- | ---------------- |
 
-## ENTIDADE COMPRAS
-### POST - CADASTRAR LISTA DE COMPRAS ("/compra")
- ### GET - RETORNAR LISTA DE COMPRAS ("/produtos")
- ### GET - RETORNAR COMPRAS PELO ID ("produto/:id")
+ ## ENTIDADE PRODUTOS_MASCULINOS
+| Método | Descrição | Rota|
+| ------ | ---- | -------- |
+| POST | CADASTRAR Produto `/produto/masculino`|
+| GET | RETORNAR LISTA DE PRODUTOS MASCULINOS | `/produtos/masculinos` |
+| GET | RETORNAR PRODUTO PELO ID | `/produto/masculino/:id` |
+| PATCH | ATUALIZAR CADASTRO | `/produto/masculino/:id` |
+| DELETE | DELETAR USUÁRIO | `/produto/masculino/:id` |
+| ------ | --------------- | ---------------- |
  
+ ## ENTIDADE PRODUTOS_LGBT
+| Método | Descrição | Rota|
+| ------ | ---- | -------- |
+| POST | CADASTRAR Produto `/produto/lgbt`|
+| GET | RETORNAR LISTA DE PRODUTOS LGBT | `/produtos/lgbt` |
+| GET | RETORNAR PRODUTO PELO ID | `/produto/lgbt/:id` |
+| PATCH | ATUALIZAR CADASTRO | `/produto/lgbt/:id` |
+| DELETE | DELETAR USUÁRIO | `/produto/lgbt/:id` |
+| ------ | --------------- | ---------------- |
  ## UM LOGIN JÁ CADASTRADO PARA TESTAR:
  ```{
       "email": "keener@io.com",
