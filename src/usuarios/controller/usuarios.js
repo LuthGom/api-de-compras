@@ -4,9 +4,9 @@ const bcrypt = require("bcrypt");
 class UsuariosControllers {
     static async cadastrarUsuario(req, res) {
         try {
-            const { nome, apelido, email, senha, cpf, telefone, endereco, cep, cidade, uf, complemento } = req.body;
+            const { nome, apelido, email, senha } = req.body;
             const senhaHash = await bcrypt.hash(senha, 12);
-            const NovoUsuario = new Usuario({ nome, apelido, email, cpf, telefone, endereco, cep, cidade, uf, complemento, senha: senhaHash, });
+            const NovoUsuario = new Usuario({ nome, apelido, email, senha: senhaHash, });
             await NovoUsuario.cadastrarUsuario();
             return res.status(200).json(NovoUsuario)
         } catch (error) {
@@ -59,13 +59,6 @@ class UsuariosControllers {
                     apelido: login.apelido,
                     email: login.email,
                     senha: login.senha,
-                    cpf: login.cpf,
-                    telefone: login.telefone,
-                    endereco: login.endereco,
-                    cep: login.cep,
-                    cidade: login.cidade,
-                    uf: login.uf,
-                    complemento: login.complemento,
                 },
             });
         } catch (error) {
@@ -85,13 +78,6 @@ class UsuariosControllers {
                     body.nome || cadastroAntigo.nome,
                     body.apelido || cadastroAntigo.apelido,
                     body.email || cadastroAntigo.email,
-                    body.cpf || cadastroAntigo.cpf,
-                    body.telefone || cadastroAntigo.telefone,
-                    body.cep || cadastroAntigo.cep,
-                    body.endereco || cadastroAntigo.endereco,
-                    body.cidade || cadastroAntigo.cidade,
-                    body.uf || cadastroAntigo.uf,
-                    body.complemento || cadastroAntigo.complemento,
                     body.senha ? await bcrypt.hash(req.body.senha, 10) : cadastroAntigo.senha,
                 ];
                 await Usuario.atualizarUsuario(email, cadastroAtualizado)

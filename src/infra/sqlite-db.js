@@ -10,16 +10,8 @@ CREATE TABLE IF NOT EXISTS "Usuarios"(
     "id" INTEGER PRIMARY KEY AUTOINCREMENT, 
     "nome" VARCHAR(64),
     "apelido" varchar(64),
-    "email" varchar(64),
-    "cpf" varchar(11),
-    "telefone" INTEGER,
-    "endereco" varchar(64),
-    "cep" INTEGER,
-    "cidade" varchar(64),
-    "uf" varchar(4),
-    "complemento" varchar(64),
+    "email" varchar(64) NOT NULL UNIQUE,
     "senha" varchar(64)
-    
 )`;
 
 const FEMININOS_SCHEMA = `
@@ -81,6 +73,12 @@ function criaTabelaDelistaDeCompras() {
         if (error) console.log("Erro ao criar tabela de Lista de Compras");
     });
 }
+function populaTabelaDeUsuarios() {
+    bd.run(`
+    INSERT OR IGNORE INTO Usuarios(nome, apelido, email, senha)
+    VALUES("Luciano Mendes", "Luth", "luth@teste.com", "123456789")
+    `)
+}
 function populaTabelasDeProdutos() {
     bd.run(`
     INSERT or IGNORE INTO Produtos_Femininos(titulo, descricao, preco, url_imagem)
@@ -106,6 +104,7 @@ bd.serialize(() => {
     criaTabelasDeProdutos();
     criaTabelaDelistaDeCompras();
     populaTabelasDeProdutos();
+    populaTabelaDeUsuarios();
 })
 process.on('SIGINT', () =>
     db.close(() => {

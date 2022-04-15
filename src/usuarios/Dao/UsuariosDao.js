@@ -2,7 +2,7 @@ const db = require('../../infra/sqlite-db');
 
 module.exports = class UsuariosDao {
     static cadastrarUsuario(novoUsuario) {
-        const INSERT_INTO_Usuarios = `INSERT INTO Usuarios (nome, apelido, email, cpf, telefone, endereco, cep, cidade, uf, complemento, senha) VALUES (?,?,?,?,?,?,?,?,?,?,?);`
+        const INSERT_INTO_Usuarios = `INSERT INTO Usuarios (nome, apelido, email,  senha) VALUES (?,?,?,?);`
         return new Promise((resolve, reject) => {
             db.all(INSERT_INTO_Usuarios,
                 [...Object.values(novoUsuario)],
@@ -58,7 +58,7 @@ module.exports = class UsuariosDao {
         return new Promise((resolve, reject) => {
             const UPDATE = `
                 UPDATE Usuarios
-                SET nome = ?, apelido = ?, email = ?, cpf = ?, telefone = ?, endereco = ?, cep = ?, cidade = ?, uf = ?, complemento = ?, senha = ? WHERE email = ?;`;
+                SET nome = ?, apelido = ?, email = ?, senha = ? WHERE email = ?;`;
             const values = [...usuario, email];
             db.run(UPDATE,
                 values, (error) => {

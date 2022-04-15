@@ -5,13 +5,6 @@ class Usuario {
         this.nome = novoUsuario.nome;
         this.apelido = novoUsuario.apelido;
         this.email = novoUsuario.email;
-        this.cpf = novoUsuario.cpf;
-        this.telefone = novoUsuario.telefone;
-        this.endereco = novoUsuario.endereco;
-        this.cep = novoUsuario.cep;
-        this.cidade = novoUsuario.cidade;
-        this.uf = novoUsuario.uf;
-        this.complemento = novoUsuario.complemento;
         this.senha = novoUsuario.senha;
 
         this.todasAsValidacoes();
@@ -54,28 +47,15 @@ class Usuario {
         else { throw new Error(`O usuário de email ${email} não está cadastrado!`) }
     }
     todasAsValidacoes() {
-        this.autenticacaoCPF();
         this.autenticacaoNome();
         this.autenticacaoEmail();
-        this.autenticacaoTelefone();
-        this.autenticacaoSenha();
     }
     autenticacaoNome() {
         Validacoes.autenticacaoNome(this.nome)
-        Validacoes.autenticacaoNome(this.apelido)
     }
 
     autenticacaoEmail() {
         Validacoes.autenticacaoEmail(this.email)
-    }
-    autenticacaoSenha() {
-        Validacoes.autenticacaoSenha(this.senha)
-    }
-    autenticacaoCPF() {
-        Validacoes.autenticacaoCPF(this.cpf)
-    }
-    autenticacaoTelefone() {
-        Validacoes.autenticacaoTelefone(this.telefone)
     }
 
 };
