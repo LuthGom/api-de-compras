@@ -1,10 +1,10 @@
-const Produto = require("../model/Produto");
+const Produto = require("../model/ProdutosMasculinos");
 
 class ProdutosControllers {
     static async cadastrarProduto(req, res) {
         try {
-            const { titulo, subtitulo, descricao, url_imagens } = req.body;
-            const NovoProduto = new Produto({ titulo, subtitulo, descricao, url_imagens });
+            const { titulo, descricao, preco,  url_imagem } = req.body;
+            const NovoProduto = new Produto({ titulo, descricao, preco,  url_imagem });
             await NovoProduto.cadastrarProduto();
             return res.status(200).json(NovoProduto)
         } catch (error) {
@@ -47,9 +47,9 @@ class ProdutosControllers {
             if (cadastroAntigo) {
                 const cadastroAtualizado = [
                     body.titulo || cadastroAntigo.titulo,
-                    body.subtitulo || cadastroAntigo.titulo,
                     body.descricao || cadastroAntigo.descricao,
-                    body.url_imagens || cadastroAntigo.url_imagens,
+                    body.preco || cadastroAntigo.preco,
+                    body. url_imagem || cadastroAntigo. url_imagem,
                 ]
                 await Produto.atualizarProduto(id, cadastroAtualizado)
                 res.status(200).json({ ProdutoAtualizado: cadastroAtualizado });

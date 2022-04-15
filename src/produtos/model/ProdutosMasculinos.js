@@ -1,17 +1,17 @@
-const ProdutosDao = require('../Dao/ProdutosDao');
+const ProdutosDao = require('../Dao/ProdutosMDao');
 class Produto {
     constructor(novoProduto) {
         this.titulo = novoProduto.titulo;
-        this.subtitulo = novoProduto.subtitulo;
         this.descricao = novoProduto.descricao;
-        this.url_imagens = novoProduto.url_imagens;
+        this.preco = novoProduto.preco;
+        this. url_imagem = novoProduto. url_imagem;
     }
 
     async cadastrarProduto() {
-        if (!await Produto.buscarProdutoPorTitulo(this.subtitulo)) {
+        if (!await Produto.buscarProdutoPorTitulo(this.titulo)) {
             return ProdutosDao.cadastrarProduto(this)
         } else {
-            throw new Error(`O produto ${this.subtitulo} já está cadastrado!`)
+            throw new Error(`O produto ${this.titulo} já está cadastrado!`)
         }
     }
     static listarTodosOsProdutos() {
@@ -24,8 +24,8 @@ class Produto {
         }
         return produto;
     }
-    static async buscarProdutoPorTitulo(subtitulo) {
-        const produto = await ProdutosDao.buscaProdutoPorTitulo(subtitulo)
+    static async buscarProdutoPorTitulo(titulo) {
+        const produto = await ProdutosDao.buscaProdutoPorTitulo(titulo)
         if (!produto) {
             return null;
         }

@@ -22,13 +22,34 @@ CREATE TABLE IF NOT EXISTS "Usuarios"(
     
 )`;
 
-const PRODUTOS_SCHEMA = `
-CREATE TABLE IF NOT EXISTS "Produtos"(
+const FEMININOS_SCHEMA = `
+CREATE TABLE IF NOT EXISTS "Produtos_Femininos"(
     "id" INTEGER PRIMARY KEY AUTOINCREMENT, 
-    "titulo" varchar(255),
-    "subtitulo" varchar(255),
+    "titulo" varchar(255) NOT NULL,
     "descricao" varchar(2555),
-    "url_imagens" varchar(2555)
+    "preco" decimal(5,2),
+    "url_imagem" varchar(2555),
+    UNIQUE(titulo)
+
+)`;
+const MASCULINOS_SCHEMA = `
+CREATE TABLE IF NOT EXISTS "Produtos_Masculinos"(
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT, 
+    "titulo" varchar(255) NOT NULL,
+    "descricao" varchar(2555),
+    "preco" decimal(5,2),
+    "url_imagem" varchar(2555),
+    UNIQUE(titulo)
+
+)`; const LGBT_SCHEMA = `
+CREATE TABLE IF NOT EXISTS "Produtos_Lgbt"(
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT, 
+    "titulo" varchar(255) NOT NULL,
+    "descricao" varchar(2555),
+    "preco" decimal(5,2),
+    "url_imagem" varchar(2555),
+    UNIQUE(titulo)
+
 )`;
 
 const COMPRAS_SCHEMA = `
@@ -44,9 +65,15 @@ function criaTabelaDeUsuarios() {
         if (error) console.log("Erro ao criar tabela de Usuarios");
     });
 }
-function criaTabelaDeProdutos() {
-    bd.run(PRODUTOS_SCHEMA, (error) => {
-        if (error) console.log("Erro ao criar tabela de Produtos");
+function criaTabelasDeProdutos() {
+    bd.run(FEMININOS_SCHEMA, (error) => {
+        if (error) console.log("Erro ao criar tabela de Produtos", error);
+    });
+    bd.run(MASCULINOS_SCHEMA, (error) => {
+        if (error) console.log("Erro ao criar tabela de Produtos", error);
+    });
+    bd.run(LGBT_SCHEMA, (error) => {
+        if (error) console.log("Erro ao criar tabela de Produtos", error);
     });
 }
 function criaTabelaDelistaDeCompras() {
@@ -54,12 +81,36 @@ function criaTabelaDelistaDeCompras() {
         if (error) console.log("Erro ao criar tabela de Lista de Compras");
     });
 }
+function populaTabelasDeProdutos() {
+    bd.run(`
+    INSERT or IGNORE INTO Produtos_Femininos(titulo, descricao, preco, url_imagem)
+    VALUES("Chapéu", "Chapéu femimino com aba ondulado e detalhe de corrente", 70.00, "https://cdn.pixabay.com/photo/2017/05/13/12/40/fashion-2309519_960_720.jpg" )`, (error) => {
+        if (error) console.log("Erro ao criar tabela de Produtos_F", error.message);
+    });
 
+    bd.run(`
+    INSERT or IGNORE INTO Produtos_Masculinos(titulo, descricao, preco, url_imagem)
+    VALUES("Tênis", "Tênis Azul com listras brancas", 100.00, "https://cdn.pixabay.com/photo/2019/05/10/21/19/partnerlook-4194531_960_720.jpg" )`, (error) => {
+        if (error) console.log("Erro ao criar tabela de Produtos_M", error.message);
+    });
+
+    bd.run(`
+    INSERT or IGNORE INTO Produtos_Lgbt(titulo, descricao, preco, url_imagem)
+    VALUES("Guarda-Chuva", "Guarda-Chuva Arco-Íris Lgbt", 150.00, "https://cdn.pixabay.com/photo/2020/07/08/20/43/rainbow-5385163_960_720.jpg" )`, (error) => {
+        if (error) console.log("Erro ao criar tabela de Produtos_L", error.message);
+    })
+}
 bd.serialize(() => {
 
     criaTabelaDeUsuarios();
-    criaTabelaDeProdutos();
+    criaTabelasDeProdutos();
     criaTabelaDelistaDeCompras();
-
+    populaTabelasDeProdutos();
 })
+process.on('SIGINT', () =>
+    db.close(() => {
+        console.log(' BD encerrado!');
+        process.exit(0);
+    })
+);
 module.exports = bd;

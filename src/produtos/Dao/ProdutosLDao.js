@@ -2,7 +2,7 @@ const db = require('../../infra/sqlite-db');
 
 module.exports = class ProdutosDao {
     static cadastrarProduto(novoProduto) {
-        const INSERT_INTO_Produtos = `INSERT INTO Produtos (titulo, subtitulo, descricao, url_imagens) VALUES (?,?,?,?);`
+        const INSERT_INTO_Produtos = `INSERT INTO Produtos_Lgbt (titulo, descricao,preco,  url_imagem) VALUES (?,?,?,?);`
         return new Promise((resolve, reject) => {
             db.all(INSERT_INTO_Produtos,
                 [...Object.values(novoProduto)],
@@ -18,7 +18,7 @@ module.exports = class ProdutosDao {
         })
     }
     static listarTodosOsProdutos() {
-        const SELECT_ALL = 'SELECT * FROM Produtos;';
+        const SELECT_ALL = 'SELECT * FROM Produtos_Lgbt;';
         return new Promise((resolve, reject) => {
             db.all(SELECT_ALL, (error, rows) => {
 
@@ -36,7 +36,7 @@ module.exports = class ProdutosDao {
             })
         })
     } static listarProdutoPorId(id) {
-        const SELECT_BY_ID = `SELECT * FROM Produtos WHERE id = ?`
+        const SELECT_BY_ID = `SELECT * FROM Produtos_Lgbt WHERE id = ?`
         return new Promise((resolve, reject) => {
             db.all(SELECT_BY_ID, id, (error, rows) => {
                 if (error) {
@@ -57,8 +57,8 @@ module.exports = class ProdutosDao {
 
         return new Promise((resolve, reject) => {
             const UPDATE = `
-                UPDATE Produtos
-                SET titulo = ?, subtitulo = ?, descricao = ?, url_imagens = ? WHERE id = ?;`;
+                UPDATE Produtos_Lgbt
+                SET titulo = ?, descricao = ?,preco = ?,  url_imagem = ? WHERE id = ?;`;
             const values = [...produto, id];
             db.run(UPDATE,
                 values, (error) => {
@@ -77,7 +77,7 @@ module.exports = class ProdutosDao {
     }
     static deletarProduto(id) {
         return new Promise((resolve, reject) => {
-            const deletar = `DELETE FROM Produtos WHERE id = ?`
+            const deletar = `DELETE FROM Produtos_Lgbt WHERE id = ?`
             db.run(deletar, id, (error) => {
                 if (error) {
                     reject({
@@ -86,7 +86,7 @@ module.exports = class ProdutosDao {
                     })
                 } else {
                     resolve({
-                        "mensagem": `Usuário de id ${id} excluído com sucesso!`,
+                        "mensagem": `Produto de id ${id} excluído com sucesso!`,
                         "erro": false
                     })
                 }
@@ -94,7 +94,7 @@ module.exports = class ProdutosDao {
         })
     }
     static buscaProdutoPorTitulo(titulo) {
-        const SELECT_BY_TITULO = `SELECT * FROM Produtos WHERE subtitulo = ?`
+        const SELECT_BY_TITULO = `SELECT * FROM Produtos_Lgbt WHERE titulo = ?`
         return new Promise((resolve, reject) => {
             db.get(SELECT_BY_TITULO, titulo, (error, rows) => {
                 if (error) {
