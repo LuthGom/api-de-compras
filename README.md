@@ -29,7 +29,7 @@
 
 | Método | Descrição                     | Rota              |
 | ------ | ----------------------------- | ----------------- |
-| POST   | CADASTRAR USUÁRIOS `/usuario` |
+| POST   | CADASTRAR USUÁRIOS            | `/usuario`
 | GET    | RETORNAR LISTA DE USUÁRIOS    | `/usuarios`       |
 | POST   | AUTENTICAÇÃO DE LOGIN         | `/usuario/login`  |
 | GET    | RETORNAR USUÁRIO PELO ID      | `/usuarios/:id`   |
