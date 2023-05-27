@@ -37,6 +37,16 @@
 | DELETE | DELETAR USUÁRIO               | `/usuario/:email` |
 | ------ | ---------------               | ----------------  |
 
+
+## DADOS PARA CADASTRO
+
+```json
+     "nome": "Luciano Mendes",
+      "apelido": "Luth",
+      "email": "luth@teste.com",
+      "senha": "123456789"
+```
+
 ## ENTIDADE PRODUTOS_FEMININOS
 
 | Método | Descrição                             | Rota                    |
